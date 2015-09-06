@@ -5,3 +5,6 @@ libresolv.so: res_query.c
 
 libthread.so: thread.c
 	$(CC) -m32 --shared thread.c -o libthread.so
+
+clean:
+	rm -f *.so

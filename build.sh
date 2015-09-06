@@ -1,12 +1,14 @@
 #!/bin/bash -e
 
-setvars='./eval_and_run "export CFLAGS=-m32"'
+setvars=../../stub/setvars.sh
 
 emmake make
 
 pushd ../build/
-git clone git@bitbucket.org:atrosinenko/libffi.git
+test -d libffi || git clone git@bitbucket.org:atrosinenko/libffi.git
 cd libffi
+git checkout emscripten
+test -f configure || ./autogen.sh
 emconfigure $setvars ./configure --host=emscripten-unknown-linux
 emmake make
 popd
@@ -24,28 +26,28 @@ popd
 
 
 pushd ../build/
-test -d gettext-0.19.5.1 || wget http://ftp.gnu.org/pub/gnu/gettext/gettext-0.19.tar.gz
-test -d gettext-0.19.5.1 || tar -axf gettext-0.19.tar.gz
-cd gettext/gettext-runtime-0.19.5.1
-emconfigure $setvars ./configure  --disable-java --disable-native-java --disable-threads --disable-acl --disable-openmp --disable-curses
+test -d gettext-0.19 || wget http://ftp.gnu.org/pub/gnu/gettext/gettext-0.19.tar.gz
+test -d gettext-0.19 || tar -axf gettext-0.19.tar.gz
+cd gettext-0.19/gettext-runtime
+emconfigure ../$setvars ./configure  --disable-java --disable-native-java --disable-threads --disable-acl --disable-openmp --disable-curses
 emmake make
 popd
 
 
 
 pushd ../build/
-git clone git@bitbucket.org:atrosinenko/glib.git
+test -d glib || git clone git@bitbucket.org:atrosinenko/glib.git
 cd glib
+
 curdir=$(pwd)
-
-export ZLIB_CFLAGS=-I${curdir}/../../zlib-1.2.8
+export ZLIB_CFLAGS=-I${curdir}/../zlib-1.2.8
 export ZLIB_LIBS=-lz
-
-export LIBFFI_CFLAGS=-I${curdir}/../../libffi/emscripten-unknown-linux-gnu/include
+export LIBFFI_CFLAGS=-I${curdir}/../libffi/emscripten-unknown-linux-gnu/include
 export LIBFFI_LIBS=-lffi
-
 #export CFLAGS="-I../nongit/gettext-0.19.5.1/gettext-runtime/intl/ -v"
-export LIBS="-L${curdir}/../../gettext-0.19.5.1/gettext-runtime/intl/.libs/ -L${curdir}/../../stub/"
+export LIBS="-L${curdir}/../gettext-0.19/gettext-runtime/intl/.libs/ -L${curdir}/../../stub/"
+
+test -f ./configure || emconfigure $setvars ./autogen.sh
 emconfigure $setvars ./configure
 emmake make
 popd
