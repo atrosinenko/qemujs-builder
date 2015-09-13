@@ -60,6 +60,17 @@ function build_glib()
     touch glib.built
 }
 
+function build_pixman()
+{
+    test -f pixman.built && return
+    test -d pixman-0.32.6 || wget http://cairographics.org/releases/pixman-0.32.6.tar.gz
+    test -d pixman-0.32.6 || tar -axf pixman-0.32.6.tar.gz
+    pushd pixman-0.32.6
+    emconfigure $setvars ./configure
+    emmake make
+    popd
+    touch pixman.built
+}
 
 
 
@@ -71,3 +82,4 @@ build_libffi
 build_zlib
 build_gettext
 build_glib
+build_pixman
