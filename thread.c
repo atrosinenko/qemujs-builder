@@ -31,3 +31,17 @@ int pthread_cond_timedwait(pthread_cond_t   *cond,    pthread_mutex_t
 {
     return 0;
 }
+
+int pthread_atfork(void (*prepare)(void), void (*parent)(void), void (*child)(void))
+{
+	return 0;
+}
+
+int pthread_sigmask(int how, const sigset_t *set, sigset_t *oldset)
+{
+	return 0;
+}
+
+int pthread_condattr_destroy(pthread_condattr_t *attr) { return 0; }
+int pthread_condattr_init(pthread_condattr_t *attr) { return 0; }
+
