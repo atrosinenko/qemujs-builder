@@ -5,9 +5,8 @@ setvars=../../stub/setvars.sh
 function build_libffi()
 {
     test -f libffi.built && return
-    test -d libffi || git clone git@bitbucket.org:atrosinenko/libffi.git
+    test -d libffi || git clone --depth 1 --branch emscripten git@bitbucket.org:atrosinenko/libffi.git
     pushd libffi
-    git checkout emscripten
     test -f configure || ./autogen.sh
     emconfigure $setvars ./configure --host=emscripten-unknown-linux
     emmake make
@@ -42,7 +41,7 @@ function build_gettext()
 function build_glib()
 {
     test -f glib.built && return
-    test -d glib || git clone git@bitbucket.org:atrosinenko/glib.git
+    test -d glib || git clone --depth 1 --branch emscripten git@bitbucket.org:atrosinenko/glib.git
     pushd glib
 
     curdir=$(pwd)
