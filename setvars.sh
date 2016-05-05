@@ -1,4 +1,7 @@
 #!/bin/bash
 
-export CFLAGS="-m32 -Wno-format-nonliteral -Wno-format-security"
+. opts.sh
+
+export CFLAGS="-Wno-format-nonliteral -Wno-format-security $OPTS"
+echo "CFLAGS = $CFLAGS"
 exec $*

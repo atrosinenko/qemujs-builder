@@ -1,5 +1,6 @@
 #!/bin/bash -e
 
+. opts.sh
 setvars=../../stub/setvars.sh
 
 function build_libffi()
@@ -41,7 +42,7 @@ function build_gettext()
 function build_glib()
 {
     test -f glib.built && return
-    test -d glib || git clone --depth 1 --branch emscripten git@bitbucket.org:atrosinenko/glib.git
+    test -d glib || git clone --depth 1 --branch master git@bitbucket.org:atrosinenko/glib.git
     pushd glib
 
     curdir=$(pwd)
@@ -75,10 +76,11 @@ function build_pixman()
 
 emmake make
 
-mkdir -p ../build
-cd ../build
+mkdir -p ../$DIRNAME
+cd ../$DIRNAME
 build_libffi
 build_zlib
 build_gettext
 build_glib
 build_pixman
+
