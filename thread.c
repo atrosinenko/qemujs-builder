@@ -1,3 +1,4 @@
+#include <signal.h>
 #include <pthread.h>
 
 int pthread_create(pthread_t *thread, const pthread_attr_t *attr,
