@@ -2,6 +2,7 @@
 
 . opts.sh
 setvars=../../stub/setvars.sh
+export STUBDIR=$(pwd)
 
 function build_libffi()
 {

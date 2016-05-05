@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. opts.sh
+. "$STUBDIR/opts.sh"
 
 export CFLAGS="-Wno-format-nonliteral -Wno-format-security $OPTS"
 echo "CFLAGS = $CFLAGS"
