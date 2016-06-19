@@ -64,7 +64,7 @@ function build_glib()
     export LIBS="-L${curdir}/../gettext-0.19/gettext-runtime/intl/.libs/ -L${curdir}/../stub/"
     
     test -f ./configure || NOCONFIGURE=1 $setvars ./autogen.sh
-    $CONFRUNNER $setvars ./configure --disable-always-build-tests
+    $CONFRUNNER $setvars ./configure --disable-always-build-tests --with-pcre=internal
     $MAKERUNNER make || true # Work around for trying to run tests that are non-executable
     popd
     touch glib.built
