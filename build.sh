@@ -9,7 +9,7 @@ function build_stub()
 	test -f stub.built && return
 	test -d stub || git clone git@bitbucket.org:atrosinenko/stub.git
 	pushd stub
-	$MAKERUNNER make
+	$MAKERUNNER $setvars make
 	popd
 	touch stub.built
 }
