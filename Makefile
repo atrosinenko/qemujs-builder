@@ -14,7 +14,7 @@ libother.so: other.c
 include/wrappers.h:
 	mkdir -p include
 	gcc -E hlp.h -I ../../qemu/include/ -I ../../qemu/build-emscripten/ | sed -r 's/(DEF_HELPER)/\n\1/g' | ./gen_helper_wrappers.py > include/wrappers.h_
-	mv includes/wrappers.h{_,}
+	mv include/wrappers.h{_,}
 
 clean:
 	rm -f *.so include/wrappers.h
