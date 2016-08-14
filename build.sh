@@ -82,7 +82,7 @@ function build_pixman()
     touch pixman.built
 }
 
-emmake make
+$MAKERUNNER make
 
 mkdir -p ../$DIRNAME
 cd ../$DIRNAME
