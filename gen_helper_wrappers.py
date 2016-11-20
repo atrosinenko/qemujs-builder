@@ -18,11 +18,15 @@ sizes = {
     'i64': 2,
     's32': 1,
     's64': 2,
+    'f32': 1,
+    'f64': 2,
     'tl': 1,
     'ptr': 1,
     'MMXReg': 1,
     'XMMReg': 1,
 }
+
+jumping_helpers = [] #["pause", "raise_interrupt", "raise_exception", "hlt"]
 
 def gen_call(name, types):
     res = "helper_" + name + "("
@@ -45,11 +49,12 @@ for line in stdin:
     try:
         helper = def_helper.parseString(line)
         print "long long " + helper.name + "_wrapper(int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8, int arg9, int arg10) {"
-        if helper.types[0] == "void":
+        if helper.types[0] in ["void", "noreturn"]:
             print "\t" + gen_call(helper.name, helper.types[1:]) + ";"
             print "\treturn 0;"
         else:
-            print "\treturn " + gen_call(helper.name, helper.types[1:]) + ";"
+            print "\tlong long res = " + gen_call(helper.name, helper.types[1:]) + ";"
+            print "\treturn res;"
         print "}"
     except ParseException as e:
         pass

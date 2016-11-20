@@ -11,10 +11,5 @@ libthread.so: thread.c
 libother.so: other.c
 	$(CC) $(CFLAGS) --shared other.c -fPIC -o libother.so
 
-include/wrappers.h:
-	mkdir -p include
-	gcc -E hlp.h -I ../../qemu/include/ -I ../../qemu/build-emscripten/ | sed -r 's/(DEF_HELPER)/\n\1/g' | ./gen_helper_wrappers.py > include/wrappers.h_
-	mv include/wrappers.h{_,}
-
 clean:
-	rm -f *.so include/wrappers.h
+	rm -f *.so
