@@ -1,4 +1,4 @@
-all: libresolv.so libthread.so libother.so include/wrappers.h
+all: libresolv.so libthread.so libother.so
 
 SHELL = /bin/bash -o pipefail
 
