@@ -4,10 +4,13 @@
 setvars=../../stub/setvars.sh
 export STUBDIR=$(pwd)
 
+echo "Now this script will download and build some libraries using plain http..."
+read -p"Press ENTER..." unused
+
 function build_stub()
 {
 	test -f stub.built && return
-	test -d stub || git clone git@bitbucket.org:atrosinenko/stub.git
+	test -d stub || git clone https://github.com/atrosinenko/qemujs-builder.git stub
 	pushd stub
 	$MAKERUNNER $setvars make
 	popd
@@ -17,7 +20,7 @@ function build_stub()
 function build_libffi()
 {
     test -f libffi.built && return
-    test -d libffi || git clone --depth 1 --branch emscripten git@bitbucket.org:atrosinenko/libffi.git
+    test -d libffi || git clone --depth 1 --branch emscripten https://github.com/atrosinenko/libffi.git
     pushd libffi
     test -f configure || ./autogen.sh
     $CONFRUNNER $setvars ./configure $FFIOPT
@@ -53,7 +56,7 @@ function build_gettext()
 function build_glib()
 {
     test -f glib.built && return
-    test -d glib || git clone --depth 1 --branch master git@bitbucket.org:atrosinenko/glib.git
+    test -d glib || git clone --depth 1 --branch emscripten https://github.com/atrosinenko/glib.git
     pushd glib
 
     curdir=$(pwd)
@@ -81,8 +84,6 @@ function build_pixman()
     popd
     touch pixman.built
 }
-
-$MAKERUNNER make
 
 mkdir -p ../$DIRNAME
 cd ../$DIRNAME
