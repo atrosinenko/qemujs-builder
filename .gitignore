@@ -1,2 +1,4 @@
-*.so
-include/wrappers.h
+stub/*.so
+stub/include/wrappers.h
+build_emscripten*
+build_native*

@@ -10,7 +10,7 @@ read -p"Press ENTER..." unused
 function build_stub()
 {
 	test -f stub.built && return
-	test -d stub || git clone https://github.com/atrosinenko/qemujs-builder.git stub
+	test -d stub || cp -a "$STUBDIR" stub
 	pushd stub
 	$MAKERUNNER $setvars make
 	popd
