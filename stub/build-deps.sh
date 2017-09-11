@@ -31,10 +31,12 @@ function build_libffi()
 
 function build_zlib()
 {
+    ZLIB_VER="1.2.11"
     test -f zlib.built && return
-    test -d zlib-1.2.8 || wget http://zlib.net/zlib-1.2.8.tar.gz
-    test -d zlib-1.2.8 || tar -axf zlib-1.2.8.tar.gz
-    pushd zlib-1.2.8
+    test -d zlib || wget http://zlib.net/zlib-$ZLIB_VER.tar.gz
+    test -d zlib || tar -axf zlib-$ZLIB_VER.tar.gz
+    mv zlib-$ZLIB_VER zlib
+    pushd zlib
     $CONFRUNNER $setvars ./configure
     $MAKERUNNER make
     popd
