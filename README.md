@@ -1,19 +1,21 @@
-This repository contains scripts for building Qemu.js. To build Qemu.js, clone this repository, navigate to its directory and run
+This repository contains scripts for building Qemu.js (please see [description](https://github.com/atrosinenko/qemujs/blob/emscripten/README.md) for details). To build Qemu.js, clone this repository, navigate to its directory and run
 
-    git submodule init
-    git submodule update
-    mkdir qemu/build-emscripten
+    git submodule update --init
     cd qemu
+    mkdir build-emscripten
     git submodule update --init dtc
 
 Now you can start building:
 
-1. Setup Emscripten 1.36.0 through SDK, set new remote `https://github.com/atrosinenko/emscripten.git` for emscripten repository inside the SDK directory and pull `qemu` branch
-2. Navigate to `stub`, adjust `opts.sh` and run `./build-deps.sh` inside it. **Warning: it will download and build some libraries via plain http**
-3. Adjust guest architecture list in `configure-cmd.sh`
-4. Navigate to `qemu/build-emscripten` and run
+1. Install the `incoming` version of Emscripten through the Emscripten SDK.
+2. Until Emterpreter can run coroutines, one have to use the deprecated Asyncify. To use it with Qemu.js you need too apply two patches:
+   * set new remote `https://github.com/atrosinenko/emscripten.git` up for the `./emscripten/incoming` repository inside the SDK directory and merge the `asyncify-qemu` from there into `incoming`
+   * in the `./clang/fastcomp/src/` repository merge the commit 19435d6 into `incoming`, then rebuild (`cd ../build_incoming_64 && make`)
+3. Navigate to `stub`, adjust `opts.sh` and run `./build-deps.sh` inside it. **Warning: it will download and build some libraries via plain http**
+4. Adjust guest architecture list in `configure-cmd.sh`
+5. Navigate to `qemu/build-emscripten` and run
 
         emconfigure ../../configure-cmd.sh
         emmake make && ../../qemu-link.sh
 
-5. Now you have files `qemu-system-*.{js,html.mem,data}` in your build directory --- it is Qemu.js. You also need the `shell.html` file from parent directory to run it. Running directly from the file system may not work, so use some HTTP server.
+6. Now you have files `qemu-system-*.{js,html.mem,data}` in your build directory -- it is Qemu.js. You also need the `shell.html` file from parent directory to run it. Running directly from the file system may not work, so use some HTTP server (the `emrun` tool from SDK is even capable of showing the console output of Emscripten-compiled code).
