@@ -18,7 +18,6 @@ function link_bin() {
     -s USE_SDL=2 \
     -s EXPORTED_FUNCTIONS="['_main','_mul_unsigned_long_long','_helper_ret_ldub_mmu','_helper_le_lduw_mmu','_helper_le_ldul_mmu','_helper_be_lduw_mmu','_helper_be_ldul_mmu','_helper_ret_stb_mmu','_helper_le_stw_mmu','_helper_le_stl_mmu','_helper_be_stw_mmu','_helper_be_stl_mmu','_helper_be_ldq_mmu','_helper_le_ldq_mmu','_helper_le_stq_mmu','_helper_be_stq_mmu','_update_compiler_settings','_fast_invalidate_tb']" \
     -s ASYNCIFY_WHITELIST="[$(cat ../../stub/${base}.whitelist)]" \
-    -s RESERVED_FUNCTION_POINTERS=1 \
     -s INVOKE_RUN=0 \
     -s ASYNCIFY=1 \
     --shell-file ../shell.html \
