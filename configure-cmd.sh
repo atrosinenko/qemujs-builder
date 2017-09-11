@@ -31,7 +31,7 @@ then
     SDL_OPTS="-s USE_SDL=2"
 fi
 
-EXTRA_CFLAGS="$SDL_OPTS -D__thread= -U__linux__ -U__i386__ -U__x86_64__ -include $(pwd)/../$DIRNAME/stub/macros.h -DNOTHREAD -I$(pwd)/../$DIRNAME/libffi/emscripten-unknown-linux-gnu/include/ -I$(pwd)/../$DIRNAME/zlib-1.2.8/ -I$(pwd)/../$DIRNAME/glib/glib/ -I$(pwd)/../$DIRNAME/glib/ -I$(pwd)/../$DIRNAME/pixman-0.32.6/pixman/ -Wno-warn-absolute-paths $OPTS"
+EXTRA_CFLAGS="$SDL_OPTS -D__thread= -U__linux__ -U__i386__ -U__x86_64__ -DNOTHREAD -I$(pwd)/../$DIRNAME/libffi/emscripten-unknown-linux-gnu/include/ -I$(pwd)/../$DIRNAME/zlib-1.2.8/ -I$(pwd)/../$DIRNAME/glib/glib/ -I$(pwd)/../$DIRNAME/glib/ -I$(pwd)/../$DIRNAME/pixman-0.32.6/pixman/ -Wno-warn-absolute-paths $OPTS"
 EXTRA_LDFLAGS="$SDL_OPTS -DNOTHREAD -L$(pwd)/../$DIRNAME/libffi/emscripten-unknown-linux-gnu/.libs/ -L$(pwd)/../$DIRNAME/zlib-1.2.8/ -L$(pwd)/../$DIRNAME/glib/glib/.libs/ -L$(pwd)/../$DIRNAME/glib/gthread/.libs/ -L$(pwd)/../$DIRNAME/pixman-0.32.6/pixman/.libs/ -L$(pwd)/../$DIRNAME/stub $OPTS"
 
 export PKG_CONFIG_PATH="$(pwd)/../$DIRNAME/glib:$(pwd)/../$DIRNAME/pixman-0.32.6/"
