@@ -10,7 +10,7 @@ Now you can start building:
 1. Install the `incoming` version of Emscripten through the Emscripten SDK.
 2. Until Emterpreter can run coroutines, one have to use the deprecated Asyncify. To use it with Qemu.js you need too apply two patches:
    * set new remote `https://github.com/atrosinenko/emscripten.git` up for the `./emscripten/incoming` repository inside the SDK directory and merge the `asyncify-qemu` from there into `incoming`
-   * in the `./clang/fastcomp/src/` repository merge the commit 19435d6 into `incoming`, then rebuild (`cd ../build_incoming_64 && make`)
+   * in the `./clang/fastcomp/src/` repository merge the commit 19435d6 into `incoming`, then rebuild (`cd ../build_incoming_64 && make`) -- see [this bug report](https://github.com/kripken/emscripten-fastcomp/issues/167) for details
 3. Navigate to `stub`, adjust `opts.sh` and run `./build-deps.sh` inside it. **Warning: it will download and build some libraries via plain http**
 4. Adjust guest architecture list in `configure-cmd.sh`
 5. Navigate to `qemu/build-emscripten` and run
