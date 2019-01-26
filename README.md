@@ -1,3 +1,5 @@
+**This repo is not required anymore for the new version of QEMU.js (which is still even more work-in-progress, though).**
+
 This repository contains scripts for building Qemu.js (please see [description](https://github.com/atrosinenko/qemujs/blob/emscripten/README.md) for details). To build Qemu.js, clone this repository, navigate to its directory and run
 
     git submodule update --init
